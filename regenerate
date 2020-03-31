@@ -1,0 +1,8 @@
+python /home/giano/.local/src/supercollider/tools/cmake_gen/generate_server_plugin_cmake.py -P "Trax" -p \
+"plugins/Trax" \
+"plugins/HPS" \
+"plugins/PV_ShiftConv" \
+"plugins/PV_TPV" \
+"plugins/PeaX" \
+"plugins/PeaXShift2" \
+-a "Gianluca Elia"

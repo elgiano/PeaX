@@ -1,0 +1,22 @@
+class:: PV_TPV
+summary:: hps, spectral convolution, tracking mixtures
+related:: TODO
+categories:: UGens>TODO
+
+description::
+
+FFT Tracking Phase Vocoder. Just tracks your peaks and zeros the rest
+
+classmethods::
+
+method::new
+
+argument::buffer
+fft chain
+
+examples::
+
+code::
+
+
+::

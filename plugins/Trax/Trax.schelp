@@ -1,0 +1,26 @@
+class:: Trax
+summary:: hps, spectral convolution, tracking mixtures
+related:: TODO
+categories:: UGens>TODO
+
+description::
+
+hps, spectral convolution, tracking mixtures
+
+
+classmethods::
+
+method::ar, kr
+
+argument::TODO
+
+argument::TODO
+
+
+examples::
+
+code::
+
+{ Trax.ar(/* TODO */) }.play
+
+::

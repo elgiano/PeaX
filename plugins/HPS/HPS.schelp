@@ -1,0 +1,46 @@
+class:: Trax
+summary:: hps, spectral convolution, tracking mixtures
+related:: TODO
+categories:: UGens>TODO
+
+description::
+
+Finds a fundamental frequency using the Harmonic Product Spectrum method.
+
+classmethods::
+
+method::new
+
+argument::buffer
+fft chain
+argument::oversampling
+oversampling factor from FFT analysis (hop, default: 0.5)
+argument::harmonics
+number of harmonics to consider for each bin (default: 8)
+argument::minfreq
+minimum acceptable frequency (default: 50)
+argument::maxfreq
+maximum frequency to consider (default: 10000)
+argument::ampThr
+ignore bins below this threshold(default: 0.01)
+
+
+
+examples::
+
+code::
+
+{
+    var fftSize = 2**14;
+	  var fftHop = 1/16;
+    var in = PlayBuf.ar(1,c,1,loop:1)*1;
+    var fft = FFT(LocalBuf(fftSize),in,fftHop);
+    var hps;
+    var p = Pitch.kr(in).poll;
+
+    hps = HPS(fft,fftHop,3,0,2000,1).poll;
+    
+    SinOsc.ar([hps,p])/2
+}.play
+
+::

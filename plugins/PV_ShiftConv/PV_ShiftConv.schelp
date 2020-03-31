@@ -1,0 +1,76 @@
+class:: PV_ShiftConv
+summary:: hps, spectral convolution, tracking mixtures
+related:: TODO
+categories:: UGens>TODO
+
+description::
+
+Shifted convolution. Each bin a[i] of bufferA gets the sum of all multiplications a[i]*b[0..].
+
+Supports stretching of b spectrum:
+* shift only: each bin a[i] gets the exact same sequence of bins from b. This results in a compression of harmonic intervals as they are shifted upwards. (and an expansion in the region where i < fromBinB)
+* shift + stretch: stretch bins for each a[i] by i/f0 (tries to preserve harmonic ratios as b spectrum is shifted)
+
+It's also possible to choose between complex operations vs. magnitude operations, and optionally average summed bins.
+The average keeps track of which bins where ignored because below thr, and adjusts accordingly.
+
+classmethods::
+
+method::new
+
+argument::bufferA
+carrier fft chain
+argument::bufferB
+modulator fft chain
+argument::minFreqA
+minimum processed frequency from chain A (default: 0)
+argument::maxFreqA
+maximum processed frequency from chain A (default: max FFT freq)
+argument::fromBinB
+minimum processed frequency from chain B (default: 0)
+argument::maxFreqB
+maximum processed frequency from chain B (default: max FFT freq)
+argument::thr
+don't process bins which magnitude is below this threshold (default: 0)
+argument::complex
+set to 1 to do complex sums and products instead of summing and multiplying magnitudes only (default: 0)
+argument::average
+set to 1 to enable averaging of summed magnitudes or complex bins (default: 0)
+argument::stretch
+enables stretching b spectrum (default: 0)
+argument::f0
+(stretching only) fundamental frequency of b, used for stretching (default: 440)
+argument::interp
+(stretching only) activates interpolation (default:0)
+
+examples::
+
+code::
+
+{
+
+	var fftSize = 2**10;
+	var ctrl = PlayBuf.ar(1,b,loop:1)/8;
+	var tmplt = PlayBuf.ar(1,c,loop:1)/8;
+
+	var fftCtrl = FFT(LocalBuf(fftSize),ctrl,0.5,0);
+	var fftTmplt = FFT(LocalBuf(fftSize),tmplt,0.5,0);
+  var pitch = Pitch.kr(tmplt);
+
+	var conv = PV_ShiftConv(fftCtrl,fftTmplt,
+		fromBinA:0,toBinA:fftSize,
+		fromBinB:0,toBinB:fftSize,
+    thr:0.5, complex: 0, average:1,
+		f0:pitch, interp:1,
+	);
+  //conv = PV_Compander(prod, 2, 1, 0.5);
+
+	//prod = PV_CopyPhase(prod,fftCtrl);
+	//prod = PV_MagSmooth(prod,0.9);
+
+	prod = IFFT(conv)*10;
+	/*ctrl!2 + */(prod!2);
+	//Limiter.ar(prod*20,0.5,0.01)!2
+}.play
+
+::
