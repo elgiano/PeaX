@@ -5,7 +5,7 @@ categories:: UGens>TODO
 
 description::
 
-FFT Tracking Phase Vocoder. Just tracks your peaks and zeros the rest
+For each peak in spectrum A, spectrum B is transposed so that rootFreq matches that peaks' freq.
 
 classmethods::
 

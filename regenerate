@@ -4,5 +4,6 @@ python /home/giano/.local/src/supercollider/tools/cmake_gen/generate_server_plug
 "plugins/PV_ShiftConv" \
 "plugins/PV_TPV" \
 "plugins/PeaX" \
+"plugins/PeaXShift" \
 "plugins/PeaXShift2" \
 -a "Gianluca Elia"
